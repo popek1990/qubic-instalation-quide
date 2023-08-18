@@ -1,0 +1,95 @@
+####### Register in Website #######
+Register in a mining pool website https://app.qubic.li/, after register click "subscribe to pool" in this pool 'qubic.li Fixed Reward'
+In a website you will see mining score, alias, access token and also paste yout public key for a withdraw mining rewards.
+
+####### Create a Qubic Wallet #######
+I used this website: https://wallet.qubic.li/
+After that copy/paste your wallet in pool mining > settings > Pay Out Account (60 character Qubic ID) in this web app.qubic.li
+
+####### Connect with server. In Win I use a 'Putty' In linux just terminal #######
+
+####### Update system + Tmux ####### 
+sudo apt update
+sudo apt upgrade
+sudo apt install tmux - instalacja tmux
+
+####### Download packages ####### 
+wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+#######  Configure APT preferences, to prioritize PMC repository by creating the following file ####### 
+sudo touch /etc/apt/preferences
+sudo nano /etc/apt/preferences
+
+And put there this : 
+
+Package: *
+Pin: origin "[packages.microsoft.com](http://packages.microsoft.com/)"
+Pin-Priority: 1001
+
+Save it (ctrl+O, enter & ctrl+X)
+
+#######  Install dotnet-sdk-6.0 ####### 
+sudo apt update
+sudo apt install dotnet-sdk-6.0
+
+#######  Install Qubic client ####### 
+
+rm qli-Service-install.sh
+wget https://app.qubic.li/cloud-init/qli-Service-install.sh
+chmod u+x qli-Service-install.sh
+./qli-Service-install.sh [threads] [access-token-from-wallet.qubic.li website]
+
+For example (there is my access key[from web] & 32 threads GPU): 
+
+./qli-Service-install.sh 32 eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjUzNmZmZGQIsIk1pbmluZyI6IiIsIm5iZiI6MgfdgQsImlzcyI6Imh0dHBzOi8vcXViaWMubGkvI6Ly9xdWJpYy5saS8ifQ.9sFLndaw39SzPqPf-H7-knTbsqwUTBnnEwV-RZ7frAPtaJLQKXfdcsfsafsadfg
+
+#######  Configuration appsettings.json file ####### 
+
+cd /q
+nano appsettings.json
+
+Paste it and add own access key from app.qubic web & save it (ctrl+O enter & ctrl+X) 
+
+{
+    "Settings": {
+        "baseUrl": "https://mine.qubic.li/",
+        "amountOfThreads": 14,
+        "alias": "popek1990.eth",
+        "accessToken": "nasz acess token z strony mine.qubic.li)"
+    }
+}
+
+####### Run a miner ####### 
+systemctl kill qli // kill miner
+tmux // run tmux
+systemctl start qli // run miner
+systemctl status qli // check if miner is active
+tail -f /var/log/qli.log // miner logs
+
+####### Miner monitoring ####### 
+
+tmux a -t 0
+systemctl start qli 
+systemctl stop qli
+systemctl restart qli
+systemctl status qli
+tail -f /var/log/qli.log
+
+####### Uinstall & Remove ####### 
+
+rm /etc/systemd/system/qli.service
+systemctl daemon-reload
+remove all related files
+rm -R /q
+rm /var/log/qli.log
+ls
+rm -R otherfile
+
+DONE! 
+I checked it myself - all working goods! 😉
+
+By Popek1990.eth
+https://twitter.com/popek1990crypto
+https://linktr.ee/popek1990
