@@ -6,7 +6,7 @@ In a website you will see mining score, alias, access token and also paste yout 
 I used this website: https://wallet.qubic.li/
 After that copy/paste your wallet in pool mining > settings > Pay Out Account (60 character Qubic ID) in this web app.qubic.li
 
-####### Connect with server. In Win I use a 'Putty' In linux just terminal #######
+####### Connect with server. In windows I use a 'Putty' software In linux just terminal #######
 
 ####### Update system + Tmux ####### 
 sudo apt update
